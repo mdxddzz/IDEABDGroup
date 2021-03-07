@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--configuration核心配置文件-->
+<configuration>
+    <properties resource="db.properties"/>
+
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <!--显式的开启全局缓存(默认开启)-->
+        <setting name="cacheEnabled" value="true"/>
+        <!--开启驼峰命名映射-->
+<!--        <setting name="mapUnderscoreToCamelCase" value="true"/>-->
+    </settings>
+    
+<!--    给实体类起别名-->
+    <typeAliases>
+<!--        <typeAlias type="cn.zjn.test.springboot.domain.User" alias="User"/>-->
+<!--        <typeAlias type="cn.hzxs.springboot.pojo.User" alias="User"/>-->
+        <package name="cn.zjn.test.springboot.domain"/> <!--设置包名 默认为该类名首字母小写-->
+    </typeAliases>
+
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--每一个Mapper.XML都需要在Mybatis核心配置文件中注册！-->
+    <mappers>
+        <mapper class="cn.zjn.test.springboot.dao.UserMapper"/>
+        <mapper class="cn.zjn.test.springboot.dao.HResourcesMapper"/>
+<!--        <mapper resource="cn/hzxs/springboot/dao/BlogMapper.xml"/>-->
+<!--        <mapper resource="cn/zjn/test/springboot/dao/UserMapper.xml"/>-->
+    </mappers>
+
+</configuration>

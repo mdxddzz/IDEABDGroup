@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zjn.test.springboot.dao.MResourcesMapper">
+<resultMap id="task" type="task">
+    <result column="taskId" property="TASKID" jdbcType="INTEGER"/>
+    <result column="title" property="TITLE" jdbcType="VARCHAR"/>
+    <result column="detail" property="DETAIL" jdbcType="VARCHAR"/>
+    <result column="members" property="MEMBERS" jdbcType="VARCHAR"/>
+    <result column="status" property="STATUS" jdbcType="VARCHAR"/>
+    <result column="remarks" property="REMARKS" jdbcType="VARCHAR"/>
+</resultMap>
+
+    <select id="getUsers" resultType="map">
+        SELECT u.imageUrl,u.username,t.title FROM usertable u,tasktable t
+        WHERE t.single=0 AND t.taskid IN (SELECT taskid FROM task_recordtable WHERE
+            t.taskid=task_recordtable.taskid)
+        AND u.userid IN (SELECT userid FROM task_recordtable WHERE
+            task_recordtable.userid=u.userid)
+    </select>
+
+    <select id="getUserId" resultType="map">
+        SELECT userName,imageUrl FROM usertable
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zjn.test.springboot.dao.HResourcesMapper">
+
+
+    <select id="getLast" resultType="java.util.Map">
+        SELECT t.title,u.imageUrl,t.detail,t.remarks,t.status,t.clickNum
+        FROM usertable u,tasktable t WHERE u.userid IN
+        (SELECT userid FROM task_recordtable) and taskid >= #{page.AMOUNT} limit #{page.LIMIT}
+    </select>
+    <select id="getTask" resultType="java.util.Map">
+        SELECT u.imageurl,t.title,t.detail,t.createtime FROM
+        task_recordtable r,tasktable t,usertable u
+        WHERE r.taskid=t.taskid AND u.userid=r.userid and t.taskid >= #{page.AMOUNT} limit #{page.LIMIT}
+    </select>
+</mapper>

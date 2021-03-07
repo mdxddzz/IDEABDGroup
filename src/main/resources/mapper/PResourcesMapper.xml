@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zjn.test.springboot.dao.PResourcesMapper">
+    <resultMap id="Plan" type="plan">
+        <result column="planId" property="PLANID" jdbcType="INTEGER"/>
+        <result column="title" property="TITLE" jdbcType="VARCHAR"/>
+        <result column="detail" property="DETAIL" jdbcType="VARCHAR"/>
+        <result column="type" property="TYPE" jdbcType="INTEGER"/>
+        <result column="author" property="AUTHOR" jdbcType="VARCHAR"/>
+        <result column="remarks" property="REMARKS" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="addPlan">
+        insert into plantable (title,detail,type,author,remarks) values (#{TITLE},#{DETAIL},#{TYPE},#{AUTHOR},#{REMARKS})
+    </insert>
+
+    <select id="getPlan" resultType="map">
+        SELECT p.title,u.imageUrl,p.detail,p.remarks,p.createtime
+        FROM plantable p,usertable u WHERE p.author=u.username
+        AND p.planid >= #{page.AMOUNT} LIMIT #{page.LIMIT};
+    </select>
+
+</mapper>

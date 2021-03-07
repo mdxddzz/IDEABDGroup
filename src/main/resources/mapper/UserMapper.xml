@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace ==> 意为绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="cn.zjn.test.springboot.dao.UserMapper">
+    <resultMap id="UserMap" type="cn.zjn.test.springboot.domain.User">
+        <result column="userID" property="USERID" jdbcType="INTEGER"/>
+        <result column="userName" property="USERNAME" jdbcType="VARCHAR"/>
+        <result column="password" property="PASSWORD" jdbcType="VARCHAR"/>
+        <result column="email" property="EMAIL" jdbcType="VARCHAR"/>
+        <result column="imageUrl" property="IMAGEURL" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="findPasswordByUsername" resultType="map">
+        select password from userTable where userName=#{username}
+    </select>
+
+    <select id="findPasswordByUserId" resultType="user">
+        select password from userTable where userId=#{userId}
+    </select>
+
+    <insert id="regisUser" parameterType="user">
+        insert into userTable (userName,password,email) values (#{USERNAME},#{PASSWORD},#{EMAIL})
+    </insert>
+
+    <select id="existUsername" resultType="integer">
+        select count(*) from userTable where username=#{name};
+    </select>
+    <select id="findUserIdByUsername" resultType="java.lang.String">
+        select userid from usertable where username=#{username}
+    </select>
+
+</mapper>
