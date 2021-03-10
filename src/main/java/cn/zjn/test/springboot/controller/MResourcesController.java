@@ -20,7 +20,6 @@ public class MResourcesController {
 
     @GetMapping("/getUsers")
     public JsonResult getUsers() {
-        Collections.emptyList().add(mResourcesService.getUsers());
         ArrayList<Object> objects = new ArrayList<>();
         objects.add(mResourcesService.getUsers());
         objects.add(mResourcesService.getUserId());
